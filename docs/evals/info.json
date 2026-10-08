@@ -1,0 +1,238 @@
+{
+  "articles": [
+    {
+      "slug": "eval-jam-buka",
+      "category": "hours",
+      "translations": {
+        "id": {
+          "title": "[EVAL] Jam buka",
+          "body": "Restoran buka setiap hari pukul 10.00 sampai 22.00 WIB.",
+          "tags": [
+            "jam buka"
+          ],
+          "aliases": [
+            "buka",
+            "tutup"
+          ]
+        },
+        "en": {
+          "title": "[EVAL] Opening hours",
+          "body": "The restaurant is open every day from 10:00 to 22:00 (WIB).",
+          "tags": [
+            "opening hours"
+          ],
+          "aliases": [
+            "open",
+            "close"
+          ]
+        },
+        "ja": {
+          "title": "[EVAL] 営業時間",
+          "body": "毎日10:00から22:00（WIB）まで営業しています。",
+          "tags": [
+            "営業時間"
+          ],
+          "aliases": [
+            "開店",
+            "閉店"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-lokasi",
+      "category": "location",
+      "translations": {
+        "id": {
+          "title": "[EVAL] Lokasi",
+          "body": "Kami berada di Jl. Eval Raya No. 1, Jakarta. Parkir tersedia di depan restoran.",
+          "tags": [
+            "alamat"
+          ],
+          "aliases": [
+            "lokasi",
+            "parkir"
+          ]
+        },
+        "en": {
+          "title": "[EVAL] Location",
+          "body": "We are at Jl. Eval Raya No. 1, Jakarta. Parking is available in front of the restaurant.",
+          "tags": [
+            "address"
+          ],
+          "aliases": [
+            "where",
+            "parking"
+          ]
+        },
+        "ja": {
+          "title": "[EVAL] 所在地",
+          "body": "当店は Jl. Eval Raya No. 1, ジャカルタにあります。駐車場は店の前にあります。",
+          "tags": [
+            "住所"
+          ],
+          "aliases": [
+            "場所",
+            "駐車場"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-kebijakan-pembatalan",
+      "category": "policy",
+      "translations": {
+        "id": {
+          "title": "[EVAL] Kebijakan pembatalan",
+          "body": "Reservasi dapat dibatalkan tanpa biaya paling lambat 3 jam sebelum waktu reservasi.",
+          "tags": [
+            "pembatalan"
+          ],
+          "aliases": [
+            "batal",
+            "cancel"
+          ]
+        },
+        "en": {
+          "title": "[EVAL] Cancellation policy",
+          "body": "Reservations can be cancelled free of charge up to 3 hours before the reservation time.",
+          "tags": [
+            "cancellation"
+          ],
+          "aliases": [
+            "cancel",
+            "refund"
+          ]
+        },
+        "ja": {
+          "title": "[EVAL] キャンセルポリシー",
+          "body": "予約時間の3時間前まで無料でキャンセルできます。",
+          "tags": [
+            "キャンセル"
+          ],
+          "aliases": [
+            "取消",
+            "cancel"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-kebijakan-anak",
+      "category": "policy",
+      "translations": {
+        "id": {
+          "title": "[EVAL] Anak-anak dan hewan peliharaan",
+          "body": "Anak-anak diperbolehkan dan kursi bayi tersedia. Hewan peliharaan tidak diperbolehkan di dalam ruangan.",
+          "tags": [
+            "anak"
+          ],
+          "aliases": [
+            "kursi bayi",
+            "hewan"
+          ]
+        },
+        "en": {
+          "title": "[EVAL] Children and pets",
+          "body": "Children are welcome and high chairs are available. Pets are not allowed indoors.",
+          "tags": [
+            "children"
+          ],
+          "aliases": [
+            "high chair",
+            "pets"
+          ]
+        },
+        "ja": {
+          "title": "[EVAL] お子様とペット",
+          "body": "お子様連れも歓迎で、ベビーチェアがあります。屋内ではペットはご遠慮ください。",
+          "tags": [
+            "子供"
+          ],
+          "aliases": [
+            "ベビーチェア",
+            "ペット"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-pembayaran",
+      "category": "faq",
+      "translations": {
+        "id": {
+          "title": "[EVAL] Metode pembayaran",
+          "body": "Pembayaran dilakukan di restoran dengan tunai atau QRIS. Tidak ada pembayaran online.",
+          "tags": [
+            "pembayaran"
+          ],
+          "aliases": [
+            "bayar",
+            "qris"
+          ]
+        },
+        "en": {
+          "title": "[EVAL] Payment methods",
+          "body": "Payment is made at the restaurant by cash or QRIS. There is no online payment.",
+          "tags": [
+            "payment"
+          ],
+          "aliases": [
+            "pay",
+            "qris"
+          ]
+        },
+        "ja": {
+          "title": "[EVAL] お支払い方法",
+          "body": "お支払いは店頭で現金またはQRISです。オンライン決済はありません。",
+          "tags": [
+            "支払い"
+          ],
+          "aliases": [
+            "決済",
+            "qris"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-halal",
+      "category": "faq",
+      "translations": {
+        "id": {
+          "title": "[EVAL] Status halal",
+          "body": "Dapur kami tidak menggunakan babi atau alkohol dalam masakan.",
+          "tags": [
+            "halal"
+          ],
+          "aliases": [
+            "babi",
+            "alkohol"
+          ]
+        },
+        "en": {
+          "title": "[EVAL] Halal status",
+          "body": "Our kitchen does not use pork or alcohol in its dishes.",
+          "tags": [
+            "halal"
+          ],
+          "aliases": [
+            "pork",
+            "alcohol"
+          ]
+        },
+        "ja": {
+          "title": "[EVAL] ハラール",
+          "body": "当店のキッチンでは料理に豚肉とアルコールを使用していません。",
+          "tags": [
+            "ハラール"
+          ],
+          "aliases": [
+            "豚肉",
+            "アルコール"
+          ]
+        }
+      }
+    }
+  ]
+}

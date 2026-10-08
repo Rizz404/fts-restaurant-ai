@@ -1,0 +1,870 @@
+{
+  "categories": {
+    "starters": {
+      "sort_order": 1,
+      "is_active": true,
+      "names": {
+        "id": "Pembuka",
+        "en": "Starters",
+        "ja": "前菜"
+      }
+    },
+    "mains": {
+      "sort_order": 2,
+      "is_active": true,
+      "names": {
+        "id": "Hidangan utama",
+        "en": "Mains",
+        "ja": "メイン"
+      }
+    },
+    "desserts": {
+      "sort_order": 3,
+      "is_active": true,
+      "names": {
+        "id": "Penutup",
+        "en": "Desserts",
+        "ja": "デザート"
+      }
+    },
+    "drinks": {
+      "sort_order": 4,
+      "is_active": true,
+      "names": {
+        "id": "Minuman",
+        "en": "Drinks",
+        "ja": "ドリンク"
+      }
+    }
+  },
+  "dishes": [
+    {
+      "slug": "eval-gado-gado",
+      "category": "starters",
+      "price": 32000,
+      "sort": 1,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "peanuts": "contains",
+        "soy": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Gado-gado",
+          "description": "Sayuran rebus dengan bumbu kacang dan kerupuk.",
+          "aliases": [
+            "salad sayur"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Gado-gado",
+          "description": "Steamed vegetables with peanut sauce and crackers.",
+          "aliases": [
+            "vegetable salad"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] ガドガド",
+          "description": "蒸し野菜にピーナッツソースとクラッカーを添えて。",
+          "aliases": [
+            "サラダ"
+          ]
+        }
+      },
+      "chef": true,
+      "spice": 1
+    },
+    {
+      "slug": "eval-tempe-mendoan",
+      "category": "starters",
+      "price": 24000,
+      "sort": 2,
+      "diet": [
+        "halal",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": {
+        "soy": "contains",
+        "cereals_gluten": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Tempe mendoan",
+          "description": "Tempe tipis goreng dalam adonan berbumbu.",
+          "aliases": [
+            "tempe goreng"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Tempeh mendoan",
+          "description": "Thin fried tempeh in a seasoned batter.",
+          "aliases": [
+            "fried tempeh"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] テンペ・ムンドアン",
+          "description": "薄切りテンペを香味衣で揚げたもの。",
+          "aliases": [
+            "揚げテンペ"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-lumpia-sayur",
+      "category": "starters",
+      "price": 26000,
+      "sort": 3,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "cereals_gluten": "contains",
+        "soy": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Lumpia sayur",
+          "description": "Lumpia goreng isi sayuran.",
+          "aliases": [
+            "lumpia"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Vegetable spring rolls",
+          "description": "Fried spring rolls filled with vegetables.",
+          "aliases": [
+            "spring roll"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] 野菜春巻き",
+          "description": "野菜入りの揚げ春巻き。",
+          "aliases": [
+            "春巻き"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-sup-jagung",
+      "category": "starters",
+      "price": 22000,
+      "sort": 4,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "milk": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Sup jagung",
+          "description": "Sup jagung manis dengan susu.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Corn soup",
+          "description": "Sweet corn soup with milk.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] コーンスープ",
+          "description": "ミルク入りの甘いコーンスープ。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-perkedel",
+      "category": "starters",
+      "price": 20000,
+      "sort": 5,
+      "diet": [
+        "halal"
+      ],
+      "allergens": {
+        "eggs": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Perkedel kentang",
+          "description": "Perkedel kentang goreng.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Potato fritters",
+          "description": "Fried potato fritters.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] ポテトフリッター",
+          "description": "揚げたポテトのフリッター。",
+          "aliases": []
+        }
+      },
+      "then_change_allergens": {
+        "eggs": "contains",
+        "milk": "may_contain"
+      }
+    },
+    {
+      "slug": "eval-nasi-goreng-spesial",
+      "category": "mains",
+      "price": 48000,
+      "sort": 1,
+      "diet": [
+        "halal"
+      ],
+      "allergens": {
+        "eggs": "contains",
+        "soy": "contains",
+        "crustaceans": "may_contain"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Nasi goreng spesial",
+          "description": "Nasi goreng dengan telur, ayam, dan acar.",
+          "aliases": [
+            "nasi goreng"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Special fried rice",
+          "description": "Fried rice with egg, chicken, and pickles.",
+          "aliases": [
+            "fried rice"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] スペシャル・ナシゴレン",
+          "description": "卵、鶏肉、ピクルス入りのチャーハン。",
+          "aliases": [
+            "ナシゴレン"
+          ]
+        }
+      },
+      "chef": true,
+      "spice": 2
+    },
+    {
+      "slug": "eval-rendang-sapi",
+      "category": "mains",
+      "price": 68000,
+      "sort": 2,
+      "diet": [
+        "halal",
+        "pork_free",
+        "alcohol_free"
+      ],
+      "allergens": {},
+      "translations": {
+        "id": {
+          "name": "[EVAL] Rendang sapi",
+          "description": "Daging sapi dimasak lama dengan santan dan rempah.",
+          "aliases": [
+            "rendang"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Beef rendang",
+          "description": "Beef slow-cooked in coconut milk and spices.",
+          "aliases": [
+            "rendang"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] ビーフ・ルンダン",
+          "description": "ココナッツミルクとスパイスで煮込んだ牛肉。",
+          "aliases": [
+            "ルンダン"
+          ]
+        }
+      },
+      "chef": true,
+      "spice": 2
+    },
+    {
+      "slug": "eval-sate-ayam",
+      "category": "mains",
+      "price": 42000,
+      "sort": 3,
+      "diet": [
+        "halal"
+      ],
+      "allergens": {
+        "peanuts": "contains",
+        "soy": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Sate ayam",
+          "description": "Tusuk ayam bakar dengan saus kacang.",
+          "aliases": [
+            "sate"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Chicken satay",
+          "description": "Grilled chicken skewers with peanut sauce.",
+          "aliases": [
+            "satay"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] チキンサテ",
+          "description": "ピーナッツソースを添えた焼き鳥串。",
+          "aliases": [
+            "サテ"
+          ]
+        }
+      },
+      "spice": 1
+    },
+    {
+      "slug": "eval-soto-ayam",
+      "category": "mains",
+      "price": 38000,
+      "sort": 4,
+      "diet": [
+        "halal"
+      ],
+      "allergens": {
+        "celery": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Soto ayam",
+          "description": "Sup ayam kuning dengan soun dan telur rebus.",
+          "aliases": [
+            "soto"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Chicken soto",
+          "description": "Yellow chicken soup with glass noodles and boiled egg.",
+          "aliases": [
+            "soto"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] ソト・アヤム",
+          "description": "春雨とゆで卵入りの黄色い鶏スープ。",
+          "aliases": [
+            "ソト"
+          ]
+        }
+      },
+      "then_change_allergens": {
+        "celery": "contains",
+        "eggs": "may_contain"
+      }
+    },
+    {
+      "slug": "eval-ikan-bakar",
+      "category": "mains",
+      "price": 72000,
+      "sort": 5,
+      "diet": [
+        "halal"
+      ],
+      "allergens": {
+        "fish": "contains",
+        "soy": "may_contain"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Ikan bakar",
+          "description": "Ikan kakap bakar dengan sambal.",
+          "aliases": [
+            "ikan",
+            "seafood"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Grilled fish",
+          "description": "Grilled snapper with chili sambal.",
+          "aliases": [
+            "fish",
+            "seafood"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] 焼き魚",
+          "description": "鯛の炭火焼きとサンバル。",
+          "aliases": [
+            "魚",
+            "シーフード"
+          ]
+        }
+      },
+      "spice": 2
+    },
+    {
+      "slug": "eval-gulai-sayur",
+      "category": "mains",
+      "price": 36000,
+      "sort": 6,
+      "diet": [
+        "halal",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": {},
+      "translations": {
+        "id": {
+          "name": "[EVAL] Gulai sayur",
+          "description": "Sayuran dalam kuah santan berbumbu.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Vegetable gulai",
+          "description": "Vegetables in a spiced coconut curry.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] 野菜グライ",
+          "description": "スパイスの効いたココナッツカレーの野菜。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-mie-goreng-vegan",
+      "category": "mains",
+      "price": 40000,
+      "sort": 7,
+      "diet": [
+        "halal",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": {
+        "soy": "contains",
+        "cereals_gluten": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Mie goreng vegan",
+          "description": "Mie goreng dengan sayuran dan tahu.",
+          "aliases": [
+            "mie goreng"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Vegan fried noodles",
+          "description": "Fried noodles with vegetables and tofu.",
+          "aliases": [
+            "fried noodles"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] ヴィーガン焼きそば",
+          "description": "野菜と豆腐入りの焼きそば。",
+          "aliases": [
+            "焼きそば"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-ayam-bakar-madu",
+      "category": "mains",
+      "price": 52000,
+      "sort": 8,
+      "diet": [
+        "halal"
+      ],
+      "allergens": {
+        "soy": "contains",
+        "sesame": "may_contain"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Ayam bakar madu",
+          "description": "Ayam bakar dengan olesan madu.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Honey grilled chicken",
+          "description": "Grilled chicken glazed with honey.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] ハニーグリルチキン",
+          "description": "蜂蜜をぬって焼いた鶏肉。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-pepes-tahu",
+      "category": "mains",
+      "price": 34000,
+      "sort": 9,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "soy": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Pepes tahu",
+          "description": "Tahu berbumbu dibungkus daun pisang.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Steamed tofu parcels",
+          "description": "Seasoned tofu steamed in banana leaf.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] 豆腐のバナナ葉蒸し",
+          "description": "味付け豆腐をバナナの葉で蒸したもの。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-cumi-goreng",
+      "category": "mains",
+      "price": 58000,
+      "sort": 10,
+      "diet": [
+        "pork_free"
+      ],
+      "allergens": {
+        "molluscs": "contains",
+        "cereals_gluten": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Cumi goreng tepung",
+          "description": "Cumi goreng renyah dengan saus asam manis.",
+          "aliases": [
+            "cumi",
+            "seafood"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Crispy fried squid",
+          "description": "Crispy fried squid with sweet and sour sauce.",
+          "aliases": [
+            "squid",
+            "calamari",
+            "seafood"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] イカのから揚げ",
+          "description": "甘酢ソースのイカのから揚げ。",
+          "aliases": [
+            "イカ",
+            "シーフード"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-bebek-goreng",
+      "category": "mains",
+      "price": 62000,
+      "sort": 11,
+      "diet": [
+        "halal"
+      ],
+      "allergens": {},
+      "translations": {
+        "id": {
+          "name": "[EVAL] Bebek goreng",
+          "description": "Bebek goreng dengan sambal.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Fried duck",
+          "description": "Fried duck with sambal.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] アヒルの唐揚げ",
+          "description": "サンバルを添えたアヒルの唐揚げ。",
+          "aliases": []
+        }
+      },
+      "then_change_allergens": {
+        "soy": "may_contain"
+      }
+    },
+    {
+      "slug": "eval-es-cendol",
+      "category": "desserts",
+      "price": 24000,
+      "sort": 1,
+      "diet": [
+        "halal",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": {},
+      "translations": {
+        "id": {
+          "name": "[EVAL] Es cendol",
+          "description": "Es dengan cendol, santan, dan gula merah.",
+          "aliases": [
+            "cendol",
+            "es dawet"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Cendol",
+          "description": "Iced dessert with cendol jelly, coconut milk, and palm sugar.",
+          "aliases": [
+            "dawet"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] チェンドル",
+          "description": "ココナッツミルクと黒糖のチェンドル。",
+          "aliases": [
+            "かき氷"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-pisang-goreng",
+      "category": "desserts",
+      "price": 22000,
+      "sort": 2,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "cereals_gluten": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Pisang goreng",
+          "description": "Pisang goreng dengan taburan gula.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Fried banana",
+          "description": "Fried banana dusted with sugar.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] バナナの揚げ菓子",
+          "description": "砂糖をまぶした揚げバナナ。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-es-teler",
+      "category": "desserts",
+      "price": 28000,
+      "sort": 3,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "milk": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Es teler",
+          "description": "Es serut dengan alpukat, kelapa, nangka, dan susu.",
+          "aliases": [
+            "es campur"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Es teler",
+          "description": "Shaved ice with avocado, coconut, jackfruit, and milk.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] エス・テレル",
+          "description": "アボカド、ココナッツ、ジャックフルーツ、ミルクのかき氷。",
+          "aliases": []
+        }
+      },
+      "available": false
+    },
+    {
+      "slug": "eval-klepon",
+      "category": "desserts",
+      "price": 18000,
+      "sort": 4,
+      "diet": [
+        "halal",
+        "vegan",
+        "vegetarian"
+      ],
+      "allergens": {},
+      "translations": {
+        "id": {
+          "name": "[EVAL] Klepon",
+          "description": "Bola ketan isi gula merah dengan kelapa parut.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Klepon",
+          "description": "Rice cake balls filled with palm sugar and coated in coconut.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] クレポン",
+          "description": "黒糖入りの餅団子にココナッツをまぶしたもの。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-es-teh-manis",
+      "category": "drinks",
+      "price": 12000,
+      "sort": 1,
+      "diet": [
+        "halal",
+        "vegan",
+        "vegetarian",
+        "alcohol_free",
+        "pork_free"
+      ],
+      "allergens": {},
+      "translations": {
+        "id": {
+          "name": "[EVAL] Es teh manis",
+          "description": "Teh dingin manis.",
+          "aliases": [
+            "teh manis"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Sweet iced tea",
+          "description": "Sweet cold tea.",
+          "aliases": [
+            "iced tea"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] 甘いアイスティー",
+          "description": "甘い冷たいお茶。",
+          "aliases": [
+            "アイスティー"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "eval-jus-alpukat",
+      "category": "drinks",
+      "price": 20000,
+      "sort": 2,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "milk": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Jus alpukat",
+          "description": "Jus alpukat dengan susu dan cokelat.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Avocado juice",
+          "description": "Avocado juice with milk and chocolate.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] アボカドジュース",
+          "description": "ミルクとチョコレート入りのアボカドジュース。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-kopi-susu",
+      "category": "drinks",
+      "price": 18000,
+      "sort": 3,
+      "diet": [
+        "halal",
+        "vegetarian"
+      ],
+      "allergens": {
+        "milk": "contains"
+      },
+      "translations": {
+        "id": {
+          "name": "[EVAL] Kopi susu",
+          "description": "Kopi dengan susu dan gula aren.",
+          "aliases": []
+        },
+        "en": {
+          "name": "[EVAL] Milk coffee",
+          "description": "Coffee with milk and palm sugar.",
+          "aliases": []
+        },
+        "ja": {
+          "name": "[EVAL] ミルクコーヒー",
+          "description": "ミルクと黒糖入りのコーヒー。",
+          "aliases": []
+        }
+      }
+    },
+    {
+      "slug": "eval-wedang-jahe",
+      "category": "drinks",
+      "price": 14000,
+      "sort": 4,
+      "diet": [
+        "halal",
+        "vegan",
+        "vegetarian",
+        "alcohol_free",
+        "pork_free"
+      ],
+      "allergens": {},
+      "translations": {
+        "id": {
+          "name": "[EVAL] Wedang jahe",
+          "description": "Minuman jahe hangat.",
+          "aliases": [
+            "jahe"
+          ]
+        },
+        "en": {
+          "name": "[EVAL] Ginger tea",
+          "description": "Warm ginger drink.",
+          "aliases": [
+            "ginger"
+          ]
+        },
+        "ja": {
+          "name": "[EVAL] しょうがティー",
+          "description": "温かいしょうが飲料。",
+          "aliases": [
+            "しょうが"
+          ]
+        }
+      }
+    }
+  ]
+}
