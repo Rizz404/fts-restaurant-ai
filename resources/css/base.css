@@ -1,0 +1,112 @@
+/*
+ * Cross-page base rules only. Colors must reference theme tokens.
+ */
+
+[x-cloak] {
+    display: none !important;
+}
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        min-height: 100dvh;
+        background-color: var(--color-canvas);
+        color: var(--color-text);
+        font-family: var(--font-sans);
+        font-size: var(--text-body);
+        line-height: var(--text-body--line-height);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-focus);
+        outline-offset: 2px;
+    }
+}
+
+@layer components {
+    .page-enter {
+        animation: page-enter 0.45s var(--ease-cine) backwards;
+    }
+
+    .skip-link {
+        position: absolute;
+        inset-inline-start: 1rem;
+        top: -10rem;
+        z-index: 100;
+        border-radius: var(--radius-control);
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+    }
+
+    .skip-link:focus {
+        top: 1rem;
+    }
+}
+
+/*
+ * Cross-document view transitions: the page content slides while the rail,
+ * top bar, and aurora stay put.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+        navigation: auto;
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0.34s;
+        animation-timing-function: var(--ease-cine);
+    }
+
+    /* The rail, top bar, and aurora persist; only the page content moves. */
+    ::view-transition-old(ws-main) {
+        animation: vt-out 0.16s ease both;
+    }
+
+    ::view-transition-new(ws-main) {
+        animation: vt-in 0.42s var(--ease-cine) 0.06s both;
+    }
+}
+
+@keyframes vt-out {
+    to {
+        opacity: 0;
+        translate: 0 -8px;
+    }
+}
+
+@keyframes vt-in {
+    from {
+        opacity: 0;
+        translate: 0 14px;
+    }
+}
+
+@keyframes page-enter {
+    0% {
+        opacity: 0;
+        translate: 0 10px;
+    }
+
+    100% {
+        opacity: 1;
+        translate: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

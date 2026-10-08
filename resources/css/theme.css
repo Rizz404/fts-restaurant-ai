@@ -1,0 +1,82 @@
+/*
+ * FTS Restaurant AI theme: the single source of visual values.
+ * Spec: docs/UI_FOUNDATION.md section 2. Add new tokens here (and in the
+ * spec); never introduce colors in views, scripts, or other stylesheets.
+ *
+ * Visual language: a warm restaurant (cream canvas, espresso rail, a living
+ * saffron/herb/chili aurora and orb that represent the host AI).
+ */
+
+@theme static {
+    /* Drop Tailwind's default palette; only semantic colors below exist. */
+    --color-*: initial;
+
+    --color-primary: #B4472B;
+    --color-primary-hover: #963820;
+    --color-secondary: #2B1D16;
+    --color-secondary-hover: #3D2A20;
+    --color-accent: #3F7D58;
+    --color-canvas: #FBF6EF;
+    --color-surface: #FFFFFF;
+    --color-surface-muted: #F2E9DD;
+    --color-text: #2B1D16;
+    --color-muted: #6B5A4E;
+    --color-border: #E6D9C8;
+    --color-success: #15803D;
+    --color-success-soft: #F0FDF4;
+    --color-warning: #B45309;
+    --color-warning-soft: #FFFBEB;
+    --color-danger: #9F1239;
+    --color-danger-hover: #881337;
+    --color-danger-soft: #FFF1F2;
+    --color-info: #1D4ED8;
+    --color-info-soft: #EFF6FF;
+    --color-transparent: transparent;
+    --color-current: currentColor;
+    --color-overlay: rgb(43 29 22 / 0.55);
+
+    /* The host AI's colors: slide accents, aurora backdrop, orb, glows, gradient text. */
+    --color-saffron: #E9A23B;
+    --color-herb: #5FA777;
+    --color-chili: #E5624B;
+    --color-ink-soft: #D8C8B8;
+    --color-online: #34D399;
+
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+    --font-display: "Segoe UI Variable Display", "SF Pro Display", system-ui, -apple-system, "Segoe UI", "Noto Sans JP", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+    --radius-control: 0.75rem;
+    --radius-card: 1.25rem;
+    --radius-dialog: 1.25rem;
+
+    --shadow-card: 0 1px 2px rgb(43 29 22 / 0.05), 0 10px 28px -14px rgb(43 29 22 / 0.14);
+    --shadow-overlay: 0 28px 70px -16px rgb(43 29 22 / 0.34), 0 2px 8px rgb(43 29 22 / 0.1);
+    --shadow-glow: 0 0 0 1px rgb(180 71 43 / 0.22), 0 12px 40px -12px rgb(180 71 43 / 0.55);
+
+    --ease-cine: cubic-bezier(0.22, 0.8, 0.24, 1);
+
+    --text-page-title: 1.5rem;
+    --text-page-title--line-height: 2rem;
+    --text-section-title: 1.125rem;
+    --text-section-title--line-height: 1.75rem;
+    --text-body: 0.875rem;
+    --text-body--line-height: 1.5rem;
+    --text-caption: 0.75rem;
+    --text-caption--line-height: 1rem;
+}
+
+@theme inline {
+    --color-on-primary: var(--color-surface);
+    --color-focus: var(--color-primary);
+}
+
+/*
+ * The accent of the current slide/room. Registered so that moving between
+ * slides animates the color (washes, arch, numerals) instead of snapping.
+ */
+@property --accent {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #E9A23B;
+}
