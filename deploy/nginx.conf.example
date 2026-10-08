@@ -1,0 +1,86 @@
+# FTS Restaurant AI — nginx site template (PLAN_08).
+# Replace restaurant.example.com, certificate paths, the release path, and the
+# PHP-FPM socket. Only public/index.php is executed; dotfiles and .env are
+# never served. fastcgi_read_timeout (80 s) is longer than the 60 s AI turn
+# deadline and the 75 s lease. The application itself sends the security
+# headers (Content-Security-Policy, nosniff, Referrer-Policy, Permissions-Policy,
+# X-Frame-Options) on every PHP response, so they are not repeated here for
+# PHP; nginx only adds the ones for the static files it serves directly and
+# Strict-Transport-Security (keep SECURITY_HSTS=false in the app .env so the
+# header is not sent twice). Menu photos are uploaded up to 3 MB.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name restaurant.example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name restaurant.example.com;
+
+    ssl_certificate     /etc/ssl/certs/restaurant.example.com.fullchain.pem;
+    ssl_certificate_key /etc/ssl/private/restaurant.example.com.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_session_cache shared:SSL:10m;
+
+    root /var/www/restaurant-ai/current/public;
+    index index.php;
+    charset utf-8;
+    client_max_body_size 3m;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    gzip on;
+    gzip_vary on;
+    gzip_comp_level 5;
+    gzip_types text/css application/javascript application/json image/svg+xml text/plain;
+
+    # Never serve dotfiles (.env, .git, ...), except ACME challenges.
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    location /build/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+        try_files $uri =404;
+    }
+
+    # Final illustrations (public/assets/restaurant) and menu photos (storage link).
+    location ~ ^/(assets|storage)/ {
+        expires 7d;
+        add_header Cache-Control "public";
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+        try_files $uri =404;
+    }
+
+    # The only PHP entry point.
+    location = /index.php {
+        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+        fastcgi_hide_header X-Powered-By;
+        fastcgi_read_timeout 80s;
+    }
+
+    # Any other .php file is not executed.
+    location ~ \.php$ {
+        return 404;
+    }
+
+    error_page 404 /index.php;
+}

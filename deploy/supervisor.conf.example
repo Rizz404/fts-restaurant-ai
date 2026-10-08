@@ -1,0 +1,21 @@
+; FTS Restaurant AI — queue worker (PLAN_08).
+; v1 writes notifications synchronously, so the worker is optional; keep it
+; if QUEUE_CONNECTION=database jobs are used. Restart after every release:
+;   php artisan queue:restart
+; Replace the release path and user.
+
+[program:restaurant-ai-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/restaurant-ai/current/artisan queue:work --sleep=3 --tries=3 --timeout=90
+directory=/var/www/restaurant-ai/current
+user=www-data
+numprocs=1
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+stopwaitsecs=100
+redirect_stderr=true
+stdout_logfile=/var/www/restaurant-ai/shared/storage/logs/worker.log
+stdout_logfile_maxbytes=10MB
+stdout_logfile_backups=5

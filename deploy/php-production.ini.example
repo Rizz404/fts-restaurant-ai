@@ -1,0 +1,33 @@
+; FTS Restaurant AI — PHP 8.4 production overrides (PLAN_08).
+; Install as e.g. /etc/php/8.4/fpm/conf.d/99-restaurant-ai.ini and the same
+; for the CLI (scheduler/worker).
+
+; Required extensions: pdo_pgsql, intl (money formatting), gd with WebP support (menu photos),
+; mbstring. Check with: php -m | grep -E "intl|gd|pdo_pgsql" and php -r "var_dump(gd_info()['WebP Support']);"
+
+memory_limit = 256M
+; Longer than the 60 s AI deadline, shorter than nginx fastcgi_read_timeout 80 s.
+max_execution_time = 75
+max_input_time = 60
+; Menu photos are limited to 3 MB (nginx client_max_body_size 3m).
+post_max_size = 4M
+upload_max_filesize = 3M
+
+display_errors = Off
+display_startup_errors = Off
+log_errors = On
+error_reporting = E_ALL & ~E_DEPRECATED
+expose_php = Off
+
+session.cookie_secure = 1
+session.cookie_httponly = 1
+session.cookie_samesite = Lax
+session.use_strict_mode = 1
+
+opcache.enable = 1
+opcache.memory_consumption = 192
+opcache.max_accelerated_files = 20000
+; Release directories change per deploy; reload PHP-FPM after switching.
+opcache.validate_timestamps = 0
+
+date.timezone = UTC

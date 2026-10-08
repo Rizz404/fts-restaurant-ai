@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: restaurant_ai
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: restaurant_ai_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U restaurant_ai -d restaurant_ai_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      APP_ENV: testing
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: restaurant_ai_test
+      DB_USERNAME: restaurant_ai
+      DB_PASSWORD: ci-only-password
+      ASSISTANT_ENABLED: "false"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: pdo_pgsql, pgsql, intl, mbstring, gd, exif
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Install PHP dependencies (from lock)
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Prepare environment
+        run: |
+          cp .env.testing.example .env.testing
+          php artisan key:generate --env=testing --ansi
+
+      - name: PHPUnit on PostgreSQL 17 (includes concurrency tests)
+        run: composer test
+
+      - name: Pint
+        run: php vendor/bin/pint --test
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: UI conventions
+        run: npm run lint:ui
+
+      - name: Node tests
+        run: npm run test:ui
+
+      - name: Build
+        run: npm run build
+
+      - name: Composer audit
+        run: composer audit
+
+      - name: npm audit (runtime dependencies)
+        run: npm audit --omit=dev
