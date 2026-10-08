@@ -25,7 +25,7 @@ Atau langkah manual:
 
 ```bash
 composer install
-cp .env.example .env          # lalu isi DB_PASSWORD
+cp .env.example .env          # default: SQLite, tanpa password
 php artisan key:generate
 php artisan migrate
 php artisan storage:link
@@ -36,14 +36,20 @@ php artisan serve
 
 ### Database
 
-Target dan CI memakai PostgreSQL 17. Dengan Docker:
+Pengembangan lokal memakai **SQLite** (default di `.env.example`): file `database/database.sqlite` dibuat otomatis oleh `php artisan migrate`, tanpa server dan tanpa password.
 
-```bash
-# isi DB_PASSWORD di .env terlebih dahulu
-docker compose up -d
+Target production dan CI memakai **PostgreSQL 17**. Untuk memakainya secara lokal, ubah di `.env`:
+
+```dotenv
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=restaurant_ai
+DB_USERNAME=restaurant_ai
+DB_PASSWORD=...
 ```
 
-Container membuat database `restaurant_ai` dan `restaurant_ai_test` untuk role `restaurant_ai`. Tanpa Docker, buat role dan kedua database yang sama pada PostgreSQL 17 native. Pengembangan lokal sementara boleh memakai SQLite (`DB_CONNECTION=sqlite`, `touch database/database.sqlite`); kode ditulis untuk PostgreSQL dan konkurensi hanya terbukti di sana.
+Dengan Docker (`docker compose up -d`, isi `DB_PASSWORD` di `.env` dulu), container membuat database `restaurant_ai` dan `restaurant_ai_test` untuk role `restaurant_ai`; tanpa Docker buat role dan kedua database yang sama di PostgreSQL 17 native. Kode ditulis untuk PostgreSQL: pengujian konkurensi (kunci baris, kursi terakhir) dan indeks unik parsial hanya terbukti di PostgreSQL, bukan di SQLite.
 
 ### Akun admin pertama dan data demo
 
