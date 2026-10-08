@@ -1,0 +1,9 @@
+# Public pages are open to crawlers; the staff area, API, and booking pages are not.
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /bookings
+Disallow: /login
+Disallow: /password
+Disallow: /dev
