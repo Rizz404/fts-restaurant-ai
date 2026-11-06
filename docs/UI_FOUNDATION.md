@@ -90,7 +90,7 @@ Token tambahan:
 - `--spacing` tetap 0.25rem. Gunakan gap-2/3/4/6/8; panel p-4 mobile dan md:p-6 desktop.
 - Motion normal maksimum200ms untuk kontrol; animasi masuk/keluar scene mengikuti bagian 7. Class motion-reduce dan `prefers-reduced-motion` menghilangkan animasi yang tidak perlu.
 
-base.css hanya memuat base/layout rules lintas halaman: x-cloak, focus/skip link, reduced motion, view transition, default body, dan kelas dasar kontrol bila perlu. `presentation.css` memuat selector bertingkup untuk presenter AI (bagian 7). Warna di base.css merujuk token, bukan literal baru. Style scene khusus tetap dapat dibuat dengan selector terlingkup dan variable tema.
+base.css hanya memuat base/layout rules lintas halaman: x-cloak, focus/skip link, reduced motion, view transition, default body, dan kelas dasar kontrol bila perlu. `presentation.css` memuat bagian bersama (orb, tombol ikon, login staf, chip, wizard) dan `stage/*.css` memuat panggung tamu (bagian 7). Warna di base.css merujuk token, bukan literal baru. Style scene khusus tetap dapat dibuat dengan selector terlingkup dan variable tema.
 
 Ilustrasi final (dibuat Plan 8) di public/assets/restaurant dapat memakai literal fill karena stylesheet luar tidak diwarisi oleh gambar img. Warna visual utamanya mengikuti palette ini; ilustrasi tidak menjadi sumber warna UI baru. Asset library/vendor dan binary tidak masuk pemeriksaan source color.
 
@@ -181,39 +181,24 @@ Jangan melarang arbitrary dimensions atau background image yang sah. Jika static
 
 Gallery review pada375x812,768x1024,1440x900: keyboard/focus, drawer, modal, outside click, Escape, validation errors, contrast body text minimal4.5:1, reduced motion, serta no flash x-cloak. Review ini dilakukan pengguna lewat checklist tiap plan dan diformalkan di Plan8; catat manual review terpisah dari tes backend.
 
-## 7. Presenter AI: deck presentasi, animasi, transisi
+## 7. Panggung tamu: ruang ilustrasi, host AI, dock ikon
 
-Konsep: karakter AI (host restoran) memperkenalkan restoran seperti presentasi, dan **semua ruang adalah slide**. Welcome adalah deck bertuntun; Menu, Chef's Picks, Reservasi, Pesanan, Booking Saya, dan Info adalah slide kanvas yang dapat dimasuki. Warna hanya dari token (bagian 2); selector berada di `resources/css/presentation.css` dan dipakai oleh `x-layouts.user` (tamu tanpa login) dan `x-layouts.guest` (login staf). Komponen: `x-deck-stage`, `x-deck-chat`, `x-deck-character` (turunan `x-office-*` basis, lihat [Plan 3](PLAN_03_PRESENTATION_EXPERIENCE.md)).
+Konsep: tamu masuk ke **ruang makan berilustrasi layar penuh** dan dipandu **host AI** (karakter potongan SVG, terpotong rata di tepi bawah layar). Setiap ruang (Welcome, Menu, Pilihan Chef, Reservasi, Pesanan, Booking Saya, Info) adalah satu scene dengan latar sendiri. Warna panggung hanya dari `resources/css/stage/tokens.css` (dikecualikan dari `npm run lint:ui`); staf tetap memakai `theme.css`. Komponen: `x-layouts.user` (bingkai panggung), `x-restaurant-stage` (komposisi satu scene dari `SceneData`), `x-deck-chat`, `x-deck-character` (hanya untuk login staf lewat `x-layouts.guest`).
 
-**Karakter:** potret berbingkai lengkung (arch) dengan lingkaran cahaya beraksen, podium bercahaya, dan dua ikon melayang. Foto placeholder acak dipotong mengikuti arch; ilustrasi final berlatar transparan berdiri di depan arch dan boleh menembus tepi atasnya (deteksi lewat `data-placeholder`). Karakter bergerak pelan (melayang), "berbicara" saat teks diketik atau suara dibacakan, dan berpindah sisi kiri/kanan antar slide.
+**Komposisi (desktop ≥ 1024px, 100dvh tanpa scroll):**
 
-**Welcome = deck (desktop ≥1024px, 100dvh tanpa scroll):** kiri adalah slide sorter (thumbnail bernomor dengan gambar slide, seperti panel PowerPoint); tengah adalah stage; bawah adalah bar subtitle. Slide 01 sambutan (nama restoran, tagline, chip preferensi tamu: diet, alergen yang dihindari, jumlah orang; agenda berupa tautan ke slide; tombol Mulai tur); slide 02–07 satu per ruang (angka besar berkontur, judul, ringkasan, poin, tombol "Buka …" dan "Tanya AI soal ini"); slide terakhir "Tanya AI" berisi command bar dan chip prompt. Konten dan karakter bergantian sisi per slide. Chip preferensi disimpan di sisi klien dan dikirim sebagai `preferences` pada context turn AI (nilai whitelist; lihat [kontrak teknis](TECHNICAL_CONTRACTS.md#kontrak-turn-dan-model)); tidak berisi data pribadi.
+- Host berdiri di kanan-bawah; **balon bicara** di atas kepalanya mengetik narasi ruang itu, dengan pertanyaan yang disarankan, tombol Bacakan dan Lewati.
+- **Dock ikon bulat** di bawah tengah menjadi navigasi tujuh ruang plus tombol "Tanya AI". Mengarahkan kursor atau fokus ke ikon membuat host menjelaskan ruang itu di balon; mengklik memicu kalimat tur ("Mari kita menuju Menu…") lalu pindah ruang.
+- Beranda: blok sambutan di kiri (nama, tagline, dua pintu ke menu dan reservasi, preferensi tamu dalam disclosure). Ruang lain: isi halaman terbuka sebagai **lembar kertas** di kiri dengan judul serif dan tombol tutup ke beranda.
+- Chat host: panel melayang di kanan (layar penuh di ponsel).
 
-**Bar subtitle:** narasi slide yang diketik (titik berpikir lalu huruf demi huruf, tombol Lewati), titik navigasi slide, tombol suara (Web Speech), putar otomatis (bar progres mengisi selama jeda), sebelumnya, dan berikutnya. Teks lengkap tersedia untuk pembaca layar lewat region `aria-live` yang berganti per slide.
+**Ponsel dan tablet (< 1024px):** dock menyusut jadi bar ikon bawah; di beranda host muncul di kanan-bawah dengan balon ringkas di atas dock; di ruang lain host disembunyikan dan balon menjadi keterangan dua baris di atas lembar.
 
-**Navigasi deck:** tombol, thumbnail, titik, keyboard (← → PageUp PageDown Home End), geser horizontal di layar sentuh (hanya di Welcome, agar tidak mengganggu scroll vertikal di slide lain), dan hash `#slide-N`. Ctrl/Cmd+K atau `/` melompat ke slide "Tanya AI" dan memfokuskan command bar; di halaman lain membuka copilot. `present_slide` (Plan 7) hanya menawarkan tombol navigasi; deck tidak berpindah otomatis.
+**Kontrak JS:** `main.stage[data-stage]` dengan `data-mode` (`home|room`), `data-scene`, `data-accent`; `[data-stage-loader]`, `[data-stage-tour]`; tautan antar-ruang membawa `data-stage-exit` (+ `data-tour-line`); `[data-narrator-text]`, `[data-narrator-listen]`, `[data-narrator-skip]`; chat memakai `#chat-trigger`, `#chat-dock`, `.is-chat-open` pada `.stage`, dan event `chat:open|ask|pending`. `stage.js` menahan navigasi 320/560/820 ms (tanpa efek / dengan bunyi / dengan kalimat tur); animasi keluar di CSS tidak boleh lebih lama. Tanpa JavaScript, seluruh teks ada di HTML dan semua tautan tetap bekerja.
 
-**Aksen per slide/ruang:** `--accent` (properti terdaftar, bisa dianimasikan) berganti saffron/herb/chili/primary; latar, arch, angka, titik navigasi, dan bar progres ikut berubah warna dengan transisi halus.
+**Aksesibilitas dan motion:** `prefers-reduced-motion` mematikan animasi, ketikan, dan jeda transisi. Dock adalah `nav` dengan tautan native; panel chat tertutup memakai `inert` dan `visibility`. Teks bahasa ada di `lang/*/deck.php` (`deck.stage.*` untuk panggung).
 
-**Ruang (selain Welcome):** slide canvas. Kiri, presenter yang menempel (karakter kecil + bubble sambutan yang diketik, chip prompt kontekstual, tombol Lewati/Dengarkan); kanan, kanvas bernomor dengan header sampul dan isi (kartu hidangan, wizard reservasi/pesanan, daftar request, artikel info).
-
-**Mobile-first (<768px):** tamu terutama memakai ponsel portrait lewat QR di meja, jadi layout ponsel adalah desain utama, bukan turunan desktop.
-- Slide sorter menjadi tab bar bawah dengan tujuh item (ikon + label ringkas, target sentuh ≥ 44px, scroll-snap horizontal bila sempit), memperhitungkan `env(safe-area-inset-bottom)`.
-- Presenter menjadi bubble ringkas yang dapat diciutkan; karakter kecil sebagai avatar.
-- Konten satu kolom dengan scroll normal; tinggi memakai `100dvh`; tidak ada interaksi hover-only.
-- Copilot membuka layar penuh; command bar dan input tetap terlihat saat keyboard virtual muncul (pantau `visualViewport`).
-- Chip "Meja {label}" di header bila ada `table_label`.
-- Rentang 768–1023px menyesuaikan dua panel tanpa memotong tombol.
-
-**Copilot (chat):** panel dari kanan (layar penuh di mobile) dengan chip konteks slide aktif; dibuka dari command pill "Tanya AI" di top bar, chip prompt, atau `chat:ask`. Kartu hasil (hidangan, slot, draft, request) dirender `safe-card-renderer` dari template Blade. Escape menutup dan fokus kembali ke command pill.
-
-**Animasi:** isi slide masuk bertahap dari arah navigasi (`slide-in-next` / `slide-in-prev`), slide lama keluar ke arah sebaliknya, karakter muncul dengan pop, gradient judul mengalir, cincin arch berdenyut. Semua memakai `--ease-cine` dan fill `backwards` agar tidak menyisakan transform.
-
-**Transisi antar-halaman:** klik tautan ke route deck (`/`, `/menu`, `/picks`, `/reservation`, `/order`, `/bookings`, `/info`) menambah `.is-leaving` (konten memudar naik, 300 ms) lalu navigasi. Browser dengan cross-document View Transitions menjaga top bar, sorter, dan latar tetap diam sementara konten utama bergeser.
-
-**Aksesibilitas dan motion:** `prefers-reduced-motion` mematikan animasi, ketikan, dan view transition (slide berganti seketika). Seluruh kontrol adalah elemen native yang dapat difokus; slide non-aktif disembunyikan (`display: none`). Panel copilot tertutup memakai `visibility`. Tanpa JavaScript, slide pertama dan tautan agenda tetap dapat dipakai, dan form reservasi/pesanan tetap dapat diakses sebagai halaman biasa.
-
-**Gambar:** URL slide dan karakter dibangun `SceneImages`. Gambar slide dipakai di thumbnail sorter dan header kanvas; karakter dipakai besar di arch dan kecil sebagai avatar. Foto hidangan berasal dari CMS menu (bukan `SceneImages`). Daftar dan placeholder acak: [VISUAL_ASSETS.md](VISUAL_ASSETS.md).
+**Gambar:** `SceneImages` membangun URL latar (`public/assets/stage/scenes/{kode}.svg`, 1920×1080) dan karakter (`character/host-{pose}.svg`, 800×1200, plus `host-avatar.svg`); posisi host dan titik fokus latar per scene ada di `config/restaurant.php` (`scenes.stage`). Berkas dibuat oleh `python scripts/generate-stage-assets.py`. Foto hidangan berasal dari CMS menu (bukan `SceneImages`). Lihat [VISUAL_ASSETS.md](VISUAL_ASSETS.md).
 
 ## Referensi
 

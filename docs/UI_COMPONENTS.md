@@ -2,7 +2,7 @@
 
 Dokumen ini mendeskripsikan kit komponen yang **diwarisi dari FTS Corporate AI** dan benar-benar ada di kode repositori ini. Spesifikasi nilai tema tetap di [UI_FOUNDATION.md](UI_FOUNDATION.md); dokumen ini menjelaskan pemakaian komponen yang tersedia. Semua komponen dapat dilihat di `/dev/ui` (APP_ENV local/testing).
 
-> **Status (7 Oktober 2026):** kit `x-ui.*`, `x-navigation.*`, dan layout berlaku apa adanya; presenter, chat, wizard request, dan thread sudah memakai nama restoran (`x-deck-stage`, `x-deck-chat`, `x-deck-character`, `x-guest-preferences`, `x-request-thread`, `Alpine.data` `deckStage`, `restaurantChat`, `requestWizard`, `requestThread`, `requestLookup`, `notificationBell`). Komponen tambahan restoran: `x-ui.honeypot`, `x-seo`, bagian partial `experience/_request-wizard` dan `experience/_request-lookup`.
+> **Status (7 Oktober 2026):** kit `x-ui.*`, `x-navigation.*`, dan layout berlaku apa adanya; presenter, chat, wizard request, dan thread sudah memakai nama restoran (`x-restaurant-stage`, `x-deck-chat`, `x-deck-character`, `x-guest-preferences`, `x-request-thread`, `Alpine.data` `stageNarration`, `restaurantChat`, `requestWizard`, `requestThread`, `requestLookup`, `notificationBell`). Komponen tambahan restoran: `x-ui.honeypot`, `x-seo`, bagian partial `experience/_request-wizard` dan `experience/_request-lookup`.
 
 ## Aturan pakai
 
@@ -22,7 +22,7 @@ Setiap halaman memakai tepat satu layout teratas. Semua layout menyusun `x-layou
 | `x-layouts.base` | `resources/views/components/layouts/base.blade.php` | `title`, `seo` (lihat `x-seo`) | default, `head` |
 | `x-layouts.guest` | `…/layouts/guest.blade.php` | `title`, `heading`, `description`, `width` (`md`/`lg`) | default (isi panel), `before` (di atas panel), `head`. Menampilkan `session('status')` sebagai alert info. |
 | `x-layouts.admin` | `…/layouts/admin.blade.php` | `title`, `heading`, `navItems`, `breadcrumbs` | default, `actions`, `topbar`, `account` (default: account menu saat login), `navigation` (mengganti `navItems`), `head`. Menampilkan `session('status')` sebagai alert sukses. |
-| `x-layouts.user` | `…/layouts/user.blade.php` | `title`, `navItems`, `mode` (`deck`/`room`), `accent`, `scene`, `sceneLabel`, `avatar`, `stage`, `tableLabel`, `seo` | default (konten slide), `flash`, `topbar`, `navigation`, `chat`, `head`. Tamu anonim: tanpa account menu. Dipakai lewat `x-deck-stage`. |
+| `x-layouts.user` | `…/layouts/user.blade.php` | `title`, `navItems`, `mode` (`home`/`room`), `accent`, `scene`, `sceneLabel`, `backdrop`, `character`, `avatar`, `stage`, `intro`, `topics`, `speechLang`, `characterName`, `tableLabel`, `seo` | default (isi lembar), `home`, `flash`, `chat`, `head`. Tamu anonim: tanpa account menu. Dipakai lewat `x-restaurant-stage`. |
 
 ```blade
 <x-layouts.admin
@@ -46,26 +46,26 @@ Setiap halaman memakai tepat satu layout teratas. Semua layout menyusun `x-layou
 
 `navItems` (admin dan user) berbentuk `[['label' => string, 'href' => ?string, 'icon' => ?string, 'active' => bool]]`. Item tanpa `href` tampil nonaktif dengan label "Segera".
 
-### Slide tamu (deck)
+### Scene tamu (panggung)
 
-`x-deck-stage` (`resources/views/components/deck-stage.blade.php`) adalah satu-satunya cara menyusun halaman tamu. Props: `scene` (`App\Modules\Experience\Data\SceneData` dari `BuildScene`), `seo` (override `title`, `description`, `noindex`, `jsonld`). Welcome menjadi deck presentasi yang dipandu karakter (sambutan + preferensi tamu, satu slide per ruang, slide "Tanya AI"); slide lain menjadi kanvas bernomor dengan presenter di samping dan slot default sebagai isinya. Slot `chat` opsional mengganti panel copilot.
+`x-restaurant-stage` (`resources/views/components/restaurant-stage.blade.php`) adalah satu-satunya cara menyusun halaman tamu. Props: `scene` (`App\Modules\Experience\Data\SceneData` dari `BuildScene`), `seo` (override `title`, `description`, `noindex`, `jsonld`). Welcome menampilkan sambutan di kiri dan host di kanan; scene lain membuka slot default sebagai lembar kertas di samping host. Slot `chat` opsional mengganti isi chat.
 
-- Gambar slide dan karakter berasal dari `SceneImages` (placeholder ber-seed atau file lokal); karakter/avatar punya fallback bila gagal dimuat (`Alpine.data('sceneImage')`); `x-deck-character` membingkai karakter dalam arch. Gambar dekoratif (`alt=""`).
-- Navigasi slide (thumbnail sorter di desktop, tab bar yang bisa digulir di ponsel) memakai `x-navigation.user-menu` lewat `navItems` dari `SceneData::$menu`. Chip nomor meja (`?table=`) hanya tampilan.
-- Narrator (Web Speech) dan suara (Web Audio) hanya aktif atas aksi pengguna; subtitle diketik; kendali deck: slide, autoplay, keyboard, swipe (`Alpine.data('deckStage')`).
-- Context slide tersedia di `<script type="application/json" id="scene-context">`. Context ini bukan identitas; server tetap memverifikasi.
+- Gambar latar dan karakter berasal dari `SceneImages` (file lokal di `public/assets/stage`); avatar punya fallback bila gagal dimuat (`Alpine.data('sceneImage')`). Gambar dekoratif (`alt=""`).
+- Dock ikon memakai `SceneData::$menu`; ruang tanpa `href` tampil nonaktif. Chip nomor meja (`?table=`) hanya tampilan.
+- Narrator (Web Speech) dan suara (Web Audio) hanya aktif atas aksi pengguna; narasi diketik (`Alpine.data('stageNarration')`, `resources/js/stage.js`).
+- Context scene tersedia di `<script type="application/json" id="scene-context">`. Context ini bukan identitas; server tetap memverifikasi.
 
 ```blade
-<x-deck-stage :scene="$scene" :seo="['title' => $item->name, 'description' => $item->description]">
+<x-restaurant-stage :scene="$scene" :seo="['title' => $item->name, 'description' => $item->description]">
     <x-ui.card :title="…">…</x-ui.card>
-</x-deck-stage>
+</x-restaurant-stage>
 ```
 
 ### Komponen domain
 
 | Komponen | Source | Props | Catatan |
 |---|---|---|---|
-| `x-deck-chat` | `components/deck-chat.blade.php` | `scene` | Isi panel copilot; `Alpine.data('restaurantChat')`, kartu lewat `safe-card-renderer.js` (delapan jenis kartu, lima jenis aksi). Dipasang otomatis oleh `x-deck-stage`. |
+| `x-deck-chat` | `components/deck-chat.blade.php` | `scene` | Isi panel copilot; `Alpine.data('restaurantChat')`, kartu lewat `safe-card-renderer.js` (delapan jenis kartu, lima jenis aksi). Dipasang otomatis oleh `x-restaurant-stage`. |
 | `x-guest-preferences` | `components/guest-preferences.blade.php` | — | Chip diet, alergen yang dihindari, dan jumlah tamu; hanya kode whitelist di localStorage; dikirim sebagai `preferences` pada turn AI. |
 | `x-request-thread` | `components/request-thread.blade.php` | `role` (`guest`/`staff`) | Daftar pesan + kotak tulis; harus berada di dalam `x-data="requestThread(...)"` (polling 5 dtk dengan kursor `after_id`, jeda saat tab tersembunyi/offline). Mode staf menambah catatan internal. |
 | `x-navigation.notification-bell` | `components/navigation/notification-bell.blade.php` | `variant` | Notifikasi staf dari `/api/v1/notifications`; hanya dipasang untuk staf dengan tim (`@can('requests.staff')`). |

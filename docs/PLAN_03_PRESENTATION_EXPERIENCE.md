@@ -1,5 +1,7 @@
 # Plan 3 Pengalaman presentasi, tujuh slide, dan tiga bahasa
 
+> **Revisi tampilan tamu (6 November 2026):** deck slide, slide sorter, dan panel copilot diganti **panggung layar penuh** mengikuti pola cafe-ai ([PANDUAN_TURUNAN_CAFE_AI](../../PANDUAN_TURUNAN_CAFE_AI.md)): latar ilustrasi per ruang, host berpotongan karakter, balon bicara dengan narasi diketik, **dock ikon bulat** sebagai navigasi, isi halaman sebagai lembar kertas, dan chat melayang. `x-deck-stage` menjadi `x-restaurant-stage`, `deck-stage.js` menjadi `stage.js` (`Alpine.data('stageNarration')`), CSS panggung ada di `resources/css/stage/*`. Backend, rute `experience.*`, kontrak API, dan tiga bahasa tidak berubah. Rincian: [UI_FOUNDATION bagian 7](UI_FOUNDATION.md#7-panggung-tamu-ruang-ilustrasi-host-ai-dock-ikon). Bagian di bawah menjelaskan rancangan awal deck dan dipertahankan sebagai riwayat.
+
 | Metadata | Nilai |
 |---|---|
 | ID | 3 |

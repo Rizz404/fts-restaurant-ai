@@ -122,7 +122,8 @@ Tanpa provider (atau `ASSISTANT_ENABLED=false`), chat tetap tampil dengan fallba
 | `php artisan restaurant:recover-turns` | Pulihkan turn AI yang macet (terjadwal tiap menit) |
 | `php artisan restaurant:purge-data [--dry-run]` | Retensi data (terjadwal 02:00 WIB) |
 | `python docs/evals/build_corpus.py` lalu `php artisan restaurant:eval` | Bangun dan jalankan evaluasi model ([docs/evals](docs/evals/README.md)) |
-| `python scripts/generate-visual-assets.py` | Bangun ulang ilustrasi SVG di `public/assets/restaurant` |
+| `python scripts/generate-stage-assets.py` | Bangun ulang ilustrasi panggung tamu (latar scene dan host) di `public/assets/stage` |
+| `python scripts/generate-visual-assets.py` | Bangun ulang logo dan favicon |
 
 ### Pengujian
 
@@ -135,7 +136,7 @@ Runbook production (setup, scheduler, backup/restore termasuk foto menu, retensi
 ## UI: layout, komponen, dan tema
 
 - Layout: `x-layouts.guest` (login), `x-layouts.admin`, `x-layouts.user` (deck tamu) — semuanya menyusun `x-layouts.base`.
-- Komponen: `x-ui.*`, `x-navigation.*`, `x-deck-stage`, `x-deck-chat`, `x-request-thread`. Panduan: [docs/UI_COMPONENTS.md](docs/UI_COMPONENTS.md).
+- Komponen: `x-ui.*`, `x-navigation.*`, `x-restaurant-stage`, `x-deck-chat`, `x-request-thread`. Panduan: [docs/UI_COMPONENTS.md](docs/UI_COMPONENTS.md).
 - Tema: satu-satunya sumber warna/radius/shadow adalah `resources/css/theme.css` (spesifikasi di [docs/UI_FOUNDATION.md](docs/UI_FOUNDATION.md)).
 
 Aturan dasar: pakai komponen yang ada; tambahkan token hanya di `theme.css`; variant komponen didaftarkan di `App\Support\Ui\ComponentStyles` sebagai class literal penuh; modul Alpine didaftarkan di `resources/js/ui/register.js` dan `Alpine.start()` hanya ada di `resources/js/app.js`; tidak ada `x-html`/`innerHTML` (CSP mengizinkan `unsafe-eval` untuk Alpine, kompensasinya adalah teks selalu lewat `x-text`).
