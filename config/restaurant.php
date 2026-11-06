@@ -96,9 +96,25 @@ return [
     'scenes' => [
         'image_source' => env('SCENE_IMAGE_SOURCE', 'local'),
         'placeholder_base_url' => env('SCENE_PLACEHOLDER_BASE_URL', 'https://picsum.photos'),
-        'asset_path' => 'assets/restaurant',
+        'asset_path' => 'assets/stage',
         'local_extension' => env('SCENE_IMAGE_EXTENSION', 'svg'),
         'slides' => ['welcome', 'menu', 'picks', 'reservation', 'order', 'bookings', 'info'],
+
+        /*
+        | Stage artwork per scene: a full-screen illustrated background
+        | (scenes/{code}) and a cut-out of the host (character/host-{pose}).
+        | "anchor" is where the host stands (right|center|left), "focus" and
+        | "focusMobile" are the object-position of the background.
+        */
+        'stage' => [
+            'welcome' => ['pose' => 'greeting', 'anchor' => 'right', 'focus' => 'center 45%', 'focusMobile' => '38% 50%'],
+            'menu' => ['pose' => 'menu', 'anchor' => 'right', 'focus' => 'center 50%', 'focusMobile' => '50% 50%'],
+            'picks' => ['pose' => 'menu', 'anchor' => 'right', 'focus' => 'center 50%', 'focusMobile' => '62% 50%'],
+            'reservation' => ['pose' => 'notepad', 'anchor' => 'right', 'focus' => 'center 50%', 'focusMobile' => '30% 50%'],
+            'order' => ['pose' => 'notepad', 'anchor' => 'right', 'focus' => 'center 50%', 'focusMobile' => '70% 50%'],
+            'bookings' => ['pose' => 'greeting', 'anchor' => 'right', 'focus' => 'center 50%', 'focusMobile' => '45% 50%'],
+            'info' => ['pose' => 'greeting', 'anchor' => 'right', 'focus' => 'center 50%', 'focusMobile' => '55% 50%'],
+        ],
     ],
 
     /*

@@ -15,6 +15,18 @@ return [
     'sound_off' => 'Sound off',
     'table' => 'Table :label',
 
+    'stage' => [
+        'loading' => 'Setting your table…',
+        'walk_to' => 'Let’s head to :room…',
+        'walk_home' => 'Back to the front of house…',
+        'home' => 'Back to the entrance',
+        'dock' => 'Restaurant navigation',
+        'hint' => 'Point at an icon to hear what each room offers.',
+        'open_menu' => 'See the menu',
+        'open_reservation' => 'Book a table',
+        'noscript' => 'Enable JavaScript to use the navigation and the AI host. The menu and info stay reachable through links.',
+    ],
+
     'nav' => [
         'slides' => 'Slide navigation',
     ],

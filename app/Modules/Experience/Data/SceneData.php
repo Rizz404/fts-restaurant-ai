@@ -12,6 +12,7 @@ final class SceneData
 {
     /**
      * @param  list<array{code: string, label: string, tab: string, href: string, icon: string, image: string, active: bool, accent: string}>  $menu
+     * @param  array{pose: string, anchor: string, focus: string, focusMobile: string}  $stage  Where the host stands and how the background is framed.
      * @param  list<string>  $suggestedTopics
      * @param  array{scene: string, menu_item_id: ?int, request_public_id: ?string}  $context
      * @param  list<array{type: string, label: string, href: string, display: string}>  $contactLinks
@@ -24,7 +25,9 @@ final class SceneData
         public readonly string $summary,
         public readonly string $backdropUrl,
         public readonly string $characterUrl,
+        public readonly string $avatarUrl,
         public readonly string $characterName,
+        public readonly array $stage,
         public readonly array $menu,
         public readonly array $suggestedTopics,
         public readonly array $context,

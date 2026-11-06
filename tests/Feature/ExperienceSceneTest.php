@@ -123,7 +123,7 @@ class ExperienceSceneTest extends TestCase
 
         $this->app['env'] = 'production';
         $this->assertSame(SceneImages::SOURCE_LOCAL, app(SceneImages::class)->source());
-        $this->assertStringContainsString('/assets/restaurant/menu.svg', app(SceneImages::class)->backdrop(SceneCode::Menu));
+        $this->assertStringContainsString('/assets/stage/scenes/menu.svg', app(SceneImages::class)->backdrop(SceneCode::Menu));
     }
 
     public function test_welcome_text_comes_from_the_settings_for_each_locale(): void

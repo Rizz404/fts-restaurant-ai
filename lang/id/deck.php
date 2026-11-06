@@ -15,6 +15,18 @@ return [
     'sound_off' => 'Suara mati',
     'table' => 'Meja :label',
 
+    'stage' => [
+        'loading' => 'Menyiapkan meja Anda…',
+        'walk_to' => 'Mari kita menuju :room…',
+        'walk_home' => 'Kembali ke ruang depan…',
+        'home' => 'Kembali ke beranda',
+        'dock' => 'Navigasi restoran',
+        'hint' => 'Arahkan ke ikon untuk melihat isi tiap ruangan.',
+        'open_menu' => 'Lihat menu',
+        'open_reservation' => 'Pesan meja',
+        'noscript' => 'Aktifkan JavaScript untuk memakai navigasi dan host AI. Menu dan info tetap bisa dibuka lewat tautan.',
+    ],
+
     'nav' => [
         'slides' => 'Navigasi slide',
     ],

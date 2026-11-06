@@ -44,8 +44,10 @@ final class BuildScene
             intro: $intro,
             summary: __($key.'.summary'),
             backdropUrl: $this->images->backdrop($scene),
-            characterUrl: $this->images->character(),
+            characterUrl: $this->images->character($scene),
+            avatarUrl: $this->images->avatar(),
             characterName: __('deck.assistant_name'),
+            stage: $this->images->layout($scene),
             menu: $this->menu($scene),
             suggestedTopics: is_array($topics) ? array_values($topics) : [],
             context: [
