@@ -2,7 +2,7 @@
     Chef's Picks: dishes marked by the chef that are published and available (from the CMS). The "recommend for me"
     button asks the AI host, whose answer appears in the copilot; it never replaces this list.
 --}}
-<x-deck-stage :scene="$scene">
+<x-restaurant-stage :scene="$scene">
     <x-ui.card padding="sm">
         <div class="flex flex-wrap items-center justify-between gap-3">
             <p class="text-body text-muted">{{ __('menu.picks_intro') }}</p>
@@ -31,4 +31,4 @@
             @endforeach
         </div>
     @endif
-</x-deck-stage>
+</x-restaurant-stage>

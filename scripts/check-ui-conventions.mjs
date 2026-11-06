@@ -24,6 +24,8 @@ const ROOT = rootIndex !== -1 ? args[rootIndex + 1] : fileURLToPath(new URL('..'
 const SCAN_DIRS = ['resources/views', 'resources/js', 'resources/css'];
 const EXTENSIONS = ['.php', '.js', '.mjs', '.css'];
 const EXCLUDED_FILES = new Set(['resources/css/theme.css']);
+// The guest stage owns its palette (resources/css/stage/tokens.css); the staff UI does not.
+const EXCLUDED_PREFIXES = ['resources/css/stage/'];
 const BOOTSTRAP_FILE = 'resources/js/app.js';
 
 const COLOR_NAMES = [
@@ -123,7 +125,7 @@ export function checkSource(file, source) {
 function main() {
     const files = SCAN_DIRS.flatMap((dir) => walk(join(ROOT, dir)))
         .map((full) => relative(ROOT, full).split(sep).join('/'))
-        .filter((file) => !EXCLUDED_FILES.has(file));
+        .filter((file) => !EXCLUDED_FILES.has(file) && !EXCLUDED_PREFIXES.some((prefix) => file.startsWith(prefix)));
 
     const problems = files.flatMap((file) => checkSource(file, readFileSync(join(ROOT, file), 'utf8')));
 

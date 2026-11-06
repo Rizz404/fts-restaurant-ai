@@ -1,0 +1,181 @@
+/* The host's speech bubble: typed narration, suggested questions, listen and skip. */
+@layer components {
+    .stage-bubble {
+        position: absolute;
+        top: calc(var(--st-header) + 6px);
+        right: calc(var(--st-gutter) + 1vw);
+        z-index: 6;
+        display: grid;
+        width: min(410px, 32vw);
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 12px;
+        padding: 14px 16px 14px 14px;
+        border-radius: 26px 26px 8px 26px;
+        background-color: var(--st-paper);
+        color: var(--color-text);
+        box-shadow: var(--st-shadow);
+        animation: stage-bubble-in 0.6s var(--st-ease) 0.4s backwards;
+        transition:
+            opacity 0.25s ease,
+            translate 0.3s var(--st-ease);
+    }
+
+    .stage-bubble::after {
+        content: '';
+        position: absolute;
+        right: 64px;
+        bottom: -9px;
+        width: 22px;
+        height: 22px;
+        border-radius: 0 0 6px;
+        background-color: var(--st-paper);
+        rotate: 45deg;
+        z-index: -1;
+    }
+
+    .stage.is-chat-open .stage-bubble {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .bubble-avatar {
+        position: relative;
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 50%;
+        background-color: var(--color-surface-muted);
+        color: var(--color-primary);
+    }
+
+    .bubble-avatar img {
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--st-paper);
+        border-radius: 50%;
+        box-shadow: 0 0 0 2px var(--accent);
+        object-fit: cover;
+    }
+
+    .bubble-avatar::after {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border: 2px solid var(--accent);
+        border-radius: 50%;
+        opacity: 0;
+    }
+
+    .is-speaking .bubble-avatar::after {
+        animation: ring-out 1.4s ease-out infinite;
+    }
+
+    .bubble-name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent-strong);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+
+    .bubble-name .thinking-dots {
+        color: var(--accent-strong);
+    }
+
+    .bubble-text {
+        margin-top: 3px;
+        min-height: 3.4em;
+        max-height: 11em;
+        overflow-y: auto;
+        font-size: 14.5px;
+        line-height: 1.6;
+        white-space: pre-line;
+        overflow-wrap: anywhere;
+        scrollbar-width: thin;
+    }
+
+    .bubble-text[data-pending] {
+        opacity: 0;
+    }
+
+    .is-typing .bubble-text::after {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        margin-inline-start: 2px;
+        vertical-align: -2px;
+        background-color: var(--accent-strong);
+        animation: caret-blink 0.9s steps(1) infinite;
+    }
+
+    .bubble-topics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .bubble-topics .prompt {
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 12.5px;
+    }
+
+    .bubble-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .bubble-actions:empty {
+        display: none;
+    }
+
+    .bubble-action {
+        display: inline-flex;
+        min-height: 28px;
+        align-items: center;
+        gap: 6px;
+        padding: 0 10px;
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        color: var(--color-muted);
+        font-size: 12px;
+        transition:
+            border-color 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .bubble-action:hover {
+        border-color: var(--accent-strong);
+        color: var(--color-text);
+    }
+
+    .bubble-action[aria-pressed='true'] {
+        border-color: var(--accent-strong);
+        color: var(--color-text);
+    }
+}
+
+@keyframes stage-bubble-in {
+    from {
+        opacity: 0;
+        translate: 0 -10px;
+        scale: 0.96;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0;
+        scale: 1;
+    }
+}

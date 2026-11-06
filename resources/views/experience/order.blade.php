@@ -1,4 +1,4 @@
-<x-deck-stage :scene="$scene">
+<x-restaurant-stage :scene="$scene">
     <p class="text-body text-muted">{{ __('requests.order_intro') }}</p>
 
     @if ($wizard['closedToday'])
@@ -8,4 +8,4 @@
     @endif
 
     @include('experience._request-wizard', ['wizard' => $wizard])
-</x-deck-stage>
+</x-restaurant-stage>

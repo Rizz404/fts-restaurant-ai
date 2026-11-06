@@ -1,5 +1,5 @@
 {{-- My Bookings: this guest session's requests, lookup by reference, and the feedback / special request form. --}}
-<x-deck-stage :scene="$scene">
+<x-restaurant-stage :scene="$scene">
     <section aria-labelledby="mine-title" class="space-y-3">
         <h2 id="mine-title" class="text-section-title font-semibold text-text">{{ __('requests.my_requests') }}</h2>
 
@@ -37,4 +37,4 @@
         <p class="text-body text-muted">{{ __('requests.feedback_intro') }}</p>
         @include('experience._request-wizard', ['wizard' => $wizard])
     </section>
-</x-deck-stage>
+</x-restaurant-stage>

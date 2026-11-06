@@ -1,0 +1,260 @@
+/* The fixed full-screen stage: background, shade, the host cut-out, loader, tour line, leaving. */
+@layer components {
+    .stage-page {
+        overflow: hidden;
+        background-color: var(--color-secondary);
+    }
+
+    .stage {
+        position: fixed;
+        inset: 0;
+        isolation: isolate;
+        overflow: hidden;
+        background-color: var(--st-night);
+        color: var(--st-light);
+        font-family: var(--font-sans);
+    }
+
+    /* ---- background and shade ------------------------------------------- */
+
+    .stage-image {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: var(--stage-focus, center 50%);
+        animation: stage-drift 36s ease-in-out infinite alternate;
+    }
+
+    .stage-shade {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+            linear-gradient(180deg, rgb(21 14 10 / 0.55) 0%, transparent 20%),
+            linear-gradient(0deg, rgb(21 14 10 / 0.82) 0%, transparent 34%),
+            linear-gradient(90deg, rgb(21 14 10 / 0.74) 0%, rgb(21 14 10 / 0.3) 48%, transparent 74%);
+    }
+
+    .stage[data-mode='room'] .stage-shade {
+        background:
+            linear-gradient(180deg, rgb(21 14 10 / 0.55) 0%, transparent 20%),
+            linear-gradient(0deg, rgb(21 14 10 / 0.82) 0%, transparent 34%),
+            rgb(21 14 10 / 0.38);
+    }
+
+    /* ---- the host --------------------------------------------------------- */
+
+    .stage-character {
+        position: absolute;
+        bottom: 0;
+        z-index: 2;
+        width: auto;
+        max-width: 52vw;
+        height: min(72dvh, 840px);
+        object-fit: contain;
+        object-position: center bottom;
+        pointer-events: none;
+        user-select: none;
+        transform-origin: 50% 100%;
+        filter: drop-shadow(0 26px 44px rgb(0 0 0 / 0.5));
+        transition:
+            opacity 0.28s ease,
+            translate 0.4s var(--st-ease);
+        animation:
+            stage-char-in 0.9s var(--st-ease) 0.15s backwards,
+            stage-char-breathe 6s ease-in-out 1.1s infinite;
+    }
+
+    .stage[data-mode='room'] .stage-character {
+        height: min(68dvh, 800px);
+    }
+
+    .stage-character[data-anchor='right'] {
+        right: clamp(0px, 4vw, 84px);
+    }
+
+    .stage-character[data-anchor='left'] {
+        left: clamp(0px, 4vw, 84px);
+    }
+
+    .stage-character[data-anchor='center'] {
+        right: 0;
+        left: 0;
+        margin-inline: auto;
+    }
+
+    .stage:has(.stage-scene.is-speaking) .stage-character {
+        animation:
+            stage-char-breathe 1.6s ease-in-out infinite;
+    }
+
+    /* ---- loader and tour line --------------------------------------------- */
+
+    .stage-loader {
+        position: absolute;
+        inset: 0;
+        z-index: 60;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 16px;
+        background-color: var(--st-night);
+        color: var(--st-light-soft);
+        font-family: var(--st-serif);
+        font-size: 18px;
+        font-style: italic;
+        transition:
+            opacity 0.5s ease,
+            visibility 0.5s;
+    }
+
+    .stage-loader.is-ready {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .stage-mark {
+        display: grid;
+        width: 56px;
+        height: 56px;
+        place-items: center;
+        border-radius: 18px;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-saffron));
+        color: var(--st-light);
+        box-shadow: var(--shadow-glow);
+        animation: stage-pulse 1.8s ease-in-out infinite;
+    }
+
+    .stage-tour {
+        position: absolute;
+        right: 0;
+        bottom: calc(var(--st-bottom) + 64px);
+        left: 0;
+        z-index: 40;
+        width: max-content;
+        max-width: calc(100% - 32px);
+        margin-inline: auto;
+        padding: 12px 26px;
+        border: 1px solid var(--st-line);
+        border-radius: 999px;
+        background-color: var(--st-glass-strong);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        color: var(--st-light);
+        font-family: var(--st-serif);
+        font-size: clamp(18px, 2.2vw, 26px);
+        font-style: italic;
+        text-align: center;
+        opacity: 0;
+        translate: 0 10px;
+        pointer-events: none;
+        transition:
+            opacity 0.25s ease,
+            translate 0.35s var(--st-ease);
+    }
+
+    .stage-tour.is-visible {
+        opacity: 1;
+        translate: 0;
+    }
+
+    /* ---- flash and noscript ----------------------------------------------- */
+
+    .stage-flash {
+        position: absolute;
+        top: calc(var(--st-header) + 4px);
+        right: 0;
+        left: 0;
+        z-index: 45;
+        width: min(560px, calc(100% - 24px));
+        margin-inline: auto;
+        animation: drop-in 0.5s var(--st-ease) backwards;
+    }
+
+    .stage-noscript {
+        position: absolute;
+        right: 16px;
+        bottom: 6px;
+        left: 16px;
+        z-index: 50;
+        color: var(--st-light-soft);
+        font-size: 12px;
+        text-align: center;
+    }
+
+    /* ---- leaving a room (JS adds .is-leaving, then navigates) ------------- */
+
+    .stage.is-leaving .stage-sheet,
+    .stage.is-leaving .stage-home,
+    .stage.is-leaving .stage-bubble,
+    .stage.is-leaving .stage-header {
+        opacity: 0;
+        translate: 0 -10px;
+        transition:
+            opacity 0.22s ease,
+            translate 0.28s var(--st-ease);
+    }
+
+    .stage.is-leaving .stage-dock {
+        opacity: 0.7;
+        translate: 0 8px;
+        transition:
+            opacity 0.22s ease,
+            translate 0.28s var(--st-ease);
+    }
+
+    .stage.is-leaving .stage-character {
+        opacity: 0;
+        translate: 28px 0;
+    }
+
+    .stage.is-leaving .stage-image {
+        transform: scale(1.08);
+        animation: none;
+        transition: transform 1.2s var(--st-ease);
+    }
+}
+
+@keyframes stage-drift {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes stage-char-in {
+    from {
+        opacity: 0;
+        transform: translateY(5%) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes stage-char-breathe {
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(1.012);
+    }
+}
+
+@keyframes stage-pulse {
+    50% {
+        scale: 1.08;
+    }
+}

@@ -10,7 +10,7 @@
     ], $override), fn ($value) => $value !== null && $value !== '');
 @endphp
 
-<x-deck-stage :scene="$scene">
+<x-restaurant-stage :scene="$scene">
     {{-- Category tabs --}}
     <nav aria-label="{{ __('menu.categories') }}" class="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
         <a
@@ -94,4 +94,4 @@
             </section>
         @endforeach
     @endif
-</x-deck-stage>
+</x-restaurant-stage>

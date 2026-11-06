@@ -1,0 +1,13 @@
+/*
+ * The guest stage. Each file owns one region; tokens.css holds every colour.
+ * Order matters: responsive.css last, so small screens override everything.
+ */
+@import './stage/tokens.css';
+@import './stage/shell.css';
+@import './stage/header.css';
+@import './stage/home.css';
+@import './stage/bubble.css';
+@import './stage/sheet.css';
+@import './stage/dock.css';
+@import './stage/chat.css';
+@import './stage/responsive.css';

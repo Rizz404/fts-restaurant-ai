@@ -1,5 +1,5 @@
 {{-- Info slide: contact links from restaurant settings, then search and the published info articles. --}}
-<x-deck-stage :scene="$scene">
+<x-restaurant-stage :scene="$scene">
     @if ($scene->contactLinks !== [])
         <x-ui.card :title="__('info.contact_title')">
             <ul class="grid gap-3 sm:grid-cols-2" aria-label="{{ __('info.contact_title') }}">
@@ -77,4 +77,4 @@
             @endif
         </section>
     @endif
-</x-deck-stage>
+</x-restaurant-stage>

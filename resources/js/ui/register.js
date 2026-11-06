@@ -4,7 +4,8 @@ import { modal } from './modal.js';
 import { dropdown } from './dropdown.js';
 import { tabs } from './tabs.js';
 import { createToastStore, listenForToasts } from './toasts.js';
-import { deckStage, sceneImage, loginDemo } from '../deck-stage.js';
+import { stageNarration, sceneImage } from '../stage.js';
+import { loginDemo } from '../login-demo.js';
 import { guestPreferences } from '../shared/preferences.js';
 import { restaurantChat, clearChatStorage } from '../chat.js';
 import { requestWizard } from '../request-wizard.js';
@@ -41,7 +42,7 @@ export function registerUi(Alpine) {
     Alpine.data('modal', modal);
     Alpine.data('dropdown', dropdown);
     Alpine.data('tabs', tabs);
-    Alpine.data('deckStage', deckStage);
+    Alpine.data('stageNarration', stageNarration);
     Alpine.data('guestPreferences', guestPreferences);
     Alpine.data('sceneImage', sceneImage);
     Alpine.data('loginDemo', loginDemo);

@@ -1,0 +1,40 @@
+/*
+ * Guest stage tokens: the only place stage colours and sizes live.
+ * The stage is a candle-lit dining room (night ink, warm paper, a brass accent per room);
+ * the staff area keeps using theme.css. This folder is excluded from `npm run lint:ui`.
+ */
+@layer components {
+    .stage {
+        --accent: var(--color-saffron);
+        --accent-strong: color-mix(in srgb, var(--accent) 78%, var(--color-secondary));
+
+        --st-night: #150e0a;
+        --st-paper: #fbf3e6;
+        --st-paper-edge: #e9d8bb;
+        --st-light: #fff6e8;
+        --st-light-soft: rgb(255 246 232 / 0.76);
+        --st-glass: rgb(21 14 10 / 0.58);
+        --st-glass-strong: rgb(21 14 10 / 0.86);
+        --st-line: rgb(255 246 232 / 0.2);
+        --st-shadow: 0 30px 80px -24px rgb(0 0 0 / 0.65);
+        --st-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Noto Serif JP', Georgia, serif;
+        --st-ease: var(--ease-cine);
+
+        --st-header: 68px;
+        --st-dock: 72px;
+        --st-gutter: clamp(14px, 3vw, 44px);
+        --st-bottom: calc(var(--st-dock) + 34px);
+    }
+
+    .stage[data-accent='herb'] {
+        --accent: var(--color-herb);
+    }
+
+    .stage[data-accent='chili'] {
+        --accent: var(--color-chili);
+    }
+
+    .stage[data-accent='primary'] {
+        --accent: var(--color-primary);
+    }
+}

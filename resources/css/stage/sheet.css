@@ -1,0 +1,98 @@
+/* The content sheet: menu, info, reservation and the rest open as a paper sheet beside the host. */
+@layer components {
+    .stage-sheet {
+        position: absolute;
+        top: calc(var(--st-header) + 4px);
+        bottom: var(--st-bottom);
+        left: var(--st-gutter);
+        z-index: 5;
+        display: flex;
+        width: min(60vw, 920px);
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 28px;
+        background-color: var(--st-paper);
+        color: var(--color-text);
+        box-shadow: var(--st-shadow);
+        animation: stage-sheet-in 0.6s var(--st-ease) 0.1s backwards;
+        transition:
+            opacity 0.25s ease,
+            translate 0.3s var(--st-ease);
+    }
+
+    .stage-sheet-head {
+        display: flex;
+        flex: none;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 24px 14px 28px;
+        border-bottom: 1px solid var(--st-paper-edge);
+        background:
+            radial-gradient(90% 160% at 0% 0%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
+            var(--st-paper);
+    }
+
+    .stage-sheet .stage-eyebrow {
+        color: var(--accent-strong);
+    }
+
+    .stage-title {
+        margin-top: 2px;
+        font-family: var(--st-serif);
+        font-size: clamp(1.7rem, 3vw, 2.4rem);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+    }
+
+    .stage-close {
+        display: inline-grid;
+        width: 42px;
+        height: 42px;
+        flex: none;
+        place-items: center;
+        border: 1px solid var(--st-paper-edge);
+        border-radius: 50%;
+        background-color: var(--color-surface);
+        color: var(--color-text);
+        transition:
+            border-color 0.2s ease,
+            rotate 0.3s var(--st-ease);
+    }
+
+    .stage-close:hover {
+        border-color: var(--accent-strong);
+        rotate: 90deg;
+    }
+
+    .stage-sheet-body {
+        min-height: 0;
+        flex: 1;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 20px 28px 32px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--st-paper-edge) transparent;
+    }
+
+    /* A "chip" on paper is the light version; the dark one lives in .home-prefs. */
+    .stage-sheet .chip[aria-pressed='true'],
+    .stage-sheet .chip[aria-current='page'] {
+        border-color: var(--accent-strong);
+        background-color: var(--accent);
+        color: var(--st-night);
+    }
+}
+
+@keyframes stage-sheet-in {
+    from {
+        opacity: 0;
+        translate: -24px 16px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0;
+    }
+}

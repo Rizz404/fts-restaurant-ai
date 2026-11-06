@@ -2,7 +2,7 @@
     use App\Modules\Requests\Support\WizardLabels;
 @endphp
 
-<x-deck-stage :scene="$scene">
+<x-restaurant-stage :scene="$scene">
     <p>
         <a href="{{ route('experience.bookings') }}" class="inline-flex items-center gap-1 text-body font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">
             <x-ui.icon name="arrow-left" size="sm" />
@@ -72,4 +72,4 @@
             </x-ui.card>
         </div>
     @endif
-</x-deck-stage>
+</x-restaurant-stage>

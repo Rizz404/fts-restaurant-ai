@@ -1,0 +1,198 @@
+/* Smaller screens override everything above: keep this file last. */
+@layer components {
+    /* Short desktop windows */
+    @media (min-width: 64rem) and (max-height: 760px) {
+        .stage {
+            --st-header: 60px;
+            --st-dock: 64px;
+        }
+
+        .dock-item {
+            width: 46px;
+            height: 46px;
+        }
+
+        .stage-display {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+        }
+
+        .stage-home {
+            gap: 12px;
+        }
+
+        .bubble-text {
+            max-height: 8.5em;
+        }
+    }
+
+    /* Tablets and phones: the sheet fills the width, the host shrinks to the bubble. */
+    @media (max-width: 63.99rem) {
+        .stage {
+            --st-header: 58px;
+            --st-dock: 62px;
+            --st-gutter: 12px;
+            --st-bottom: calc(var(--st-dock) + 28px);
+        }
+
+        .stage-image {
+            object-position: var(--stage-focus-mobile, 50% 50%);
+        }
+
+        .stage-brand .font-mono {
+            display: none;
+        }
+
+        .stage-tools {
+            gap: 6px;
+        }
+
+        .stage-tool {
+            width: 36px;
+            height: 36px;
+        }
+
+        .stage-dock {
+            bottom: 10px;
+        }
+
+        .stage-dock ul {
+            gap: 2px;
+            padding: 6px;
+        }
+
+        .dock-item {
+            width: 42px;
+            height: 42px;
+        }
+
+        .dock-label {
+            display: none;
+        }
+
+        .dock-sep {
+            margin-inline: 2px;
+        }
+
+        /* Home */
+        .stage-home {
+            right: var(--st-gutter);
+            bottom: auto;
+            width: auto;
+            max-height: 46dvh;
+            justify-content: flex-start;
+            gap: 12px;
+            padding-top: 8px;
+        }
+
+        .stage-display {
+            font-size: clamp(2.2rem, 11vw, 3.4rem);
+        }
+
+        .stage-lead {
+            max-width: 30ch;
+            font-size: 15px;
+        }
+
+        .stage-hint {
+            display: none;
+        }
+
+        .stage-action {
+            min-height: 44px;
+            padding: 0 18px;
+        }
+
+        .stage-character {
+            max-width: 74vw;
+            height: min(58dvh, 560px);
+        }
+
+        .stage-character[data-anchor='right'] {
+            right: -6vw;
+        }
+
+        .stage[data-mode='room'] .stage-character {
+            display: none;
+        }
+
+        .stage-bubble {
+            top: auto;
+            right: var(--st-gutter);
+            bottom: var(--st-bottom);
+            left: var(--st-gutter);
+            width: auto;
+            padding: 10px 12px;
+            border-radius: 20px;
+        }
+
+        .stage-bubble::after {
+            display: none;
+        }
+
+        .bubble-avatar {
+            width: 38px;
+            height: 38px;
+        }
+
+        .bubble-text {
+            display: -webkit-box;
+            min-height: 0;
+            max-height: none;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+
+        .bubble-topics,
+        .bubble-actions {
+            display: none;
+        }
+
+        /* Room: the bubble sits on top as a one-line-or-two caption, the sheet takes the rest. */
+        .stage[data-mode='room'] .stage-bubble {
+            top: var(--st-header);
+            bottom: auto;
+        }
+
+        .stage[data-mode='room'] .bubble-text {
+            -webkit-line-clamp: 2;
+        }
+
+        .stage-sheet {
+            top: calc(var(--st-header) + 96px);
+            right: var(--st-gutter);
+            width: auto;
+            border-radius: 22px;
+        }
+
+        .stage-sheet-head {
+            padding: 14px 16px 10px 18px;
+        }
+
+        .stage-title {
+            font-size: 1.5rem;
+        }
+
+        .stage-close {
+            width: 38px;
+            height: 38px;
+        }
+
+        .stage-sheet-body {
+            padding: 14px 16px 24px;
+        }
+
+        .stage-chat {
+            inset: 0;
+            width: 100%;
+            border-radius: 0;
+            translate: 0 24px;
+        }
+
+        .stage.is-chat-open .stage-dock {
+            visibility: hidden;
+        }
+    }
+}

@@ -1,0 +1,186 @@
+/* Home: the welcome block on the left, the host on the right. */
+@layer components {
+    .stage-home {
+        position: absolute;
+        top: var(--st-header);
+        bottom: var(--st-bottom);
+        left: var(--st-gutter);
+        z-index: 5;
+        display: flex;
+        width: min(580px, 48vw);
+        flex-direction: column;
+        justify-content: center;
+        gap: 18px;
+        overflow-y: auto;
+        padding: 12px 6px 12px 0;
+        scrollbar-width: none;
+        animation: stage-rise 0.7s var(--st-ease) 0.1s backwards;
+        transition:
+            opacity 0.25s ease,
+            translate 0.3s var(--st-ease);
+    }
+
+    .stage-home::-webkit-scrollbar {
+        display: none;
+    }
+
+    .stage-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .stage-display {
+        font-family: var(--st-serif);
+        font-size: clamp(2.6rem, 6vw, 5.2rem);
+        font-weight: 600;
+        line-height: 1.02;
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+        text-shadow: 0 2px 30px rgb(0 0 0 / 0.45);
+    }
+
+    .stage-lead {
+        max-width: 38ch;
+        color: var(--st-light-soft);
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        line-height: 1.6;
+    }
+
+    .stage-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .stage-action {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        gap: 10px;
+        padding: 0 22px;
+        border: 1px solid var(--st-line);
+        border-radius: 999px;
+        background-color: var(--st-glass);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        color: var(--st-light);
+        font-weight: 600;
+        transition:
+            translate 0.3s var(--st-ease),
+            border-color 0.2s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .stage-action:hover {
+        translate: 0 -2px;
+        border-color: var(--accent);
+    }
+
+    .stage-action.is-primary {
+        border-color: transparent;
+        background: var(--accent);
+        color: var(--st-night);
+        box-shadow: 0 14px 34px -14px var(--accent);
+    }
+
+    .stage-hint {
+        color: var(--st-light-soft);
+        font-size: 13px;
+        opacity: 0.8;
+    }
+
+    /* Guest preferences, tucked into a disclosure so the welcome stays calm. */
+
+    .home-prefs summary {
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        gap: 8px;
+        padding: 0 16px;
+        border: 1px solid var(--st-line);
+        border-radius: 999px;
+        background-color: var(--st-glass);
+        color: var(--st-light);
+        font-size: 13px;
+        cursor: pointer;
+        list-style: none;
+    }
+
+    .home-prefs summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .home-prefs[open] summary {
+        border-color: var(--accent);
+    }
+
+    .home-prefs .prefs {
+        margin-top: 10px;
+        padding: 16px;
+        border: 1px solid var(--st-line);
+        border-radius: 22px;
+        background-color: var(--st-glass-strong);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+    }
+
+    .home-prefs .prefs-title,
+    .home-prefs .stepper-label {
+        color: var(--st-light-soft);
+    }
+
+    .home-prefs .stepper-value {
+        color: var(--st-light);
+    }
+
+    .home-prefs .chip {
+        border-color: var(--st-line);
+        background-color: rgb(255 246 232 / 0.08);
+        color: var(--st-light);
+    }
+
+    .home-prefs .chip:hover:not(:disabled) {
+        border-color: var(--accent);
+    }
+
+    .home-prefs .chip[aria-pressed='true'] {
+        border-color: var(--accent);
+        background-color: var(--accent);
+        color: var(--st-night);
+    }
+
+    .home-prefs .chip-count {
+        background-color: var(--accent);
+        color: var(--st-night);
+    }
+
+    .home-prefs .icon-btn {
+        border-color: var(--st-line);
+        background-color: rgb(255 246 232 / 0.08);
+        color: var(--st-light);
+    }
+
+    .home-prefs .bubble-action {
+        border-color: var(--st-line);
+        color: var(--st-light);
+    }
+}
+
+@keyframes stage-rise {
+    from {
+        opacity: 0;
+        translate: 0 18px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0;
+    }
+}

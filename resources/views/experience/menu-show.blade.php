@@ -1,4 +1,4 @@
-<x-deck-stage :scene="$scene" :seo="['title' => $item->name, 'description' => $item->description]">
+<x-restaurant-stage :scene="$scene" :seo="['title' => $item->name, 'description' => $item->description]">
     <div>
         <x-ui.link-button :href="route('experience.menu')" variant="secondary" size="sm">
             <x-ui.icon name="chevron-left" size="sm" />
@@ -76,4 +76,4 @@
             </div>
         </div>
     </article>
-</x-deck-stage>
+</x-restaurant-stage>

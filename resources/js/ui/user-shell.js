@@ -1,9 +1,8 @@
 /**
- * Guest presenter layout state: the copilot panel and the AI "busy" signal.
- * `chat:open` (window) opens the copilot, e.g. when a prompt is asked.
+ * Guest stage state: the chat panel and the AI "busy" signal.
+ * `chat:open` (window) opens the chat, e.g. when a prompt is asked.
  * `chat:pending` (window) carries the chat's busy flag so the orb can react.
- * Ctrl/Cmd+K (or "/" outside inputs) jumps to the deck's "ask" slide on the
- * reception, otherwise opens the copilot.
+ * Ctrl/Cmd+K (or "/" outside inputs) opens the chat.
  */
 export function userShell() {
     return {
@@ -47,12 +46,6 @@ export function userShell() {
             }
             event.preventDefault();
 
-            // On the reception the "ask" slide holds the command bar; elsewhere the copilot opens.
-            if (document.querySelector('.deck') && !this.chatOpen) {
-                window.dispatchEvent(new CustomEvent('deck:focus-ask'));
-
-                return;
-            }
             this.openChat();
         },
 
