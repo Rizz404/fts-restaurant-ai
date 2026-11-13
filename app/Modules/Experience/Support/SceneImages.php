@@ -67,7 +67,7 @@ final class SceneImages
     {
         if ($this->source() === self::SOURCE_LOCAL) {
             $path = trim(config('restaurant.scenes.asset_path'), '/');
-            $extension = ltrim((string) config('restaurant.scenes.local_extension', 'svg'), '.');
+            $extension = ltrim((string) config('restaurant.scenes.local_extension', 'webp'), '.');
 
             return asset("{$path}/{$localName}.{$extension}");
         }

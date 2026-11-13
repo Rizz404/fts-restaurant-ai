@@ -97,7 +97,7 @@ return [
         'image_source' => env('SCENE_IMAGE_SOURCE', 'local'),
         'placeholder_base_url' => env('SCENE_PLACEHOLDER_BASE_URL', 'https://picsum.photos'),
         'asset_path' => 'assets/stage',
-        'local_extension' => env('SCENE_IMAGE_EXTENSION', 'svg'),
+        'local_extension' => env('SCENE_IMAGE_EXTENSION', 'webp'),
         'slides' => ['welcome', 'menu', 'picks', 'reservation', 'order', 'bookings', 'info'],
 
         /*
