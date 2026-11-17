@@ -12,6 +12,10 @@
             height: 46px;
         }
 
+        .stage {
+            --st-bubble-reserve: 270px;
+        }
+
         .stage-display {
             font-size: clamp(2.4rem, 5vw, 4rem);
         }

@@ -54,7 +54,8 @@
         z-index: 2;
         width: auto;
         max-width: 52vw;
-        height: min(72dvh, 840px);
+        /* Never taller than the room under the speech bubble, so the face stays clear of it. */
+        height: clamp(340px, calc(100dvh - var(--st-header) - var(--st-bubble-reserve, 300px)), min(72dvh, 840px));
         object-fit: contain;
         object-position: center bottom;
         pointer-events: none;
@@ -67,10 +68,6 @@
         animation:
             stage-char-in 0.9s var(--st-ease) 0.15s backwards,
             stage-char-breathe 6s ease-in-out 1.1s infinite;
-    }
-
-    .stage[data-mode='room'] .stage-character {
-        height: min(68dvh, 800px);
     }
 
     .stage-character[data-anchor='right'] {
