@@ -36,11 +36,14 @@ class SearchMenuTool extends BaseTool
 
     protected function parameters(): array
     {
+        $categoryCodes = $this->categoryCodes();
+
         return [
             'type' => 'object',
             'properties' => [
                 'query' => ['type' => 'string', 'minLength' => 1, 'maxLength' => MenuFilters::MAX_QUERY_LENGTH, 'description' => 'Words describing the dish, in any language.'],
-                'category' => ['type' => 'string', 'enum' => $this->categoryCodes(), 'description' => 'Menu category code.'],
+                // An empty enum is invalid JSON schema and makes the provider reject the whole request.
+                'category' => ['type' => 'string', 'description' => 'Menu category code.'] + ($categoryCodes === [] ? [] : ['enum' => $categoryCodes]),
                 'dietary_tags' => ['type' => 'array', 'items' => ['type' => 'string', 'enum' => config('restaurant.dietary_tags')], 'maxItems' => 5],
                 'exclude_allergens' => ['type' => 'array', 'items' => ['type' => 'string', 'enum' => config('restaurant.allergens')], 'maxItems' => 15],
                 'max_price' => ['type' => 'integer', 'minimum' => 1, 'description' => 'Maximum price in the menu currency.'],

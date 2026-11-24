@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\AiTurn;
 use App\Models\Conversation;
 use App\Models\GuestRequest;
+use App\Models\MenuCategory;
 use App\Models\RequestDraft;
 use App\Models\ToolInvocation;
 use App\Modules\Assistant\Tools\ToolArgumentException;
@@ -86,6 +87,28 @@ class ToolRegistryTest extends TestCase
             $this->assertFalse($function['parameters']['additionalProperties'], $function['name']);
             $this->assertNotEmpty($function['description']);
         }
+    }
+
+    public function test_no_schema_offers_an_empty_enum_even_without_menu_categories(): void
+    {
+        $this->assertSame(0, MenuCategory::query()->count());
+
+        $emptyEnums = [];
+        $schemas = app(ToolRegistry::class)->definitions();
+        $walk = function (array $node, string $path) use (&$walk, &$emptyEnums): void {
+            if (array_key_exists('enum', $node) && $node['enum'] === []) {
+                $emptyEnums[] = $path;
+            }
+            foreach ($node as $key => $child) {
+                if (is_array($child)) {
+                    $walk($child, $path.'.'.$key);
+                }
+            }
+        };
+        $walk($schemas, 'tools');
+
+        $this->assertSame([], $emptyEnums);
+        $this->assertSame(ToolResult::VALIDATION_FAILED, $this->callTool('search_menu', ['category' => 'mains'])->code);
     }
 
     public function test_no_tool_can_change_state_beyond_a_draft_or_carry_identity(): void
