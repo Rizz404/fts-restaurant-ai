@@ -77,6 +77,9 @@ final class AnswerValidator
     }
 
     /**
+     * Models sometimes quote ids ("1"); a string of digits is read as that
+     * integer, but it must still be one of the ids given to this turn.
+     *
      * @param  list<mixed>  $ids
      * @param  list<int>  $allowed
      * @return list<int>|null null when any id is not an integer from the allowed set
@@ -85,6 +88,10 @@ final class AnswerValidator
     {
         $clean = [];
         foreach ($ids as $id) {
+            if (is_string($id) && preg_match('/^[1-9][0-9]{0,18}$/', $id) === 1) {
+                $id = (int) $id;
+            }
+
             if (! is_int($id) || ! in_array($id, $allowed, true)) {
                 return null;
             }
