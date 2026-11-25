@@ -15,18 +15,24 @@ use Illuminate\Database\Seeder;
 use RuntimeException;
 
 /**
- * Local/testing only: synthetic [DEMO] dishes in id/en/ja. Not the real menu.
+ * Synthetic [DEMO] dishes in id/en/ja. Not the real menu.
  * Covers a verified dish with allergens, a published dish whose verification
  * was cleared by an allergen edit (shown as "not verified"), a sold-out dish,
  * and two chef's picks.
  *
- *   php artisan db:seed --class=MenuDemoSeeder
+ * Local/testing:  php artisan db:seed --class=MenuDemoSeeder
+ * Production:     only through restaurant:seed-demo-content --confirm-production
  */
 class MenuDemoSeeder extends Seeder
 {
+    /**
+     * Set by restaurant:seed-demo-content after its production checks passed.
+     */
+    public static bool $allowOutsideLocal = false;
+
     public function run(SaveCategory $saveCategory, CreateMenuItem $create, UpdateMenuItem $update, VerifyAllergens $verify, PublishMenuItem $publish): void
     {
-        if (! app()->environment(['local', 'testing'])) {
+        if (! self::$allowOutsideLocal && ! app()->environment(['local', 'testing'])) {
             throw new RuntimeException('MenuDemoSeeder only runs in local or testing environments.');
         }
 

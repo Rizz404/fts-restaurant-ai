@@ -11,16 +11,22 @@ use Illuminate\Database\Seeder;
 use RuntimeException;
 
 /**
- * Local/testing only: synthetic [DEMO] info articles in id/en/ja (opening
- * hours, location, policy, FAQ). Not restaurant policy.
+ * Synthetic [DEMO] info articles in id/en/ja (opening hours, location,
+ * policy, FAQ). Not restaurant policy.
  *
- *   php artisan db:seed --class=InfoDemoSeeder
+ * Local/testing:  php artisan db:seed --class=InfoDemoSeeder
+ * Production:     only through restaurant:seed-demo-content --confirm-production
  */
 class InfoDemoSeeder extends Seeder
 {
+    /**
+     * Set by restaurant:seed-demo-content after its production checks passed.
+     */
+    public static bool $allowOutsideLocal = false;
+
     public function run(CreateArticle $create, PublishRevision $publish): void
     {
-        if (! app()->environment(['local', 'testing'])) {
+        if (! self::$allowOutsideLocal && ! app()->environment(['local', 'testing'])) {
             throw new RuntimeException('InfoDemoSeeder only runs in local or testing environments.');
         }
 
